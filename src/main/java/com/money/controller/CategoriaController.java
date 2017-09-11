@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.money.model.Categoria;
@@ -25,7 +26,7 @@ import com.money.repository.CategoriaRepository;
 import com.money.service.CategoriaService;
 
 
-@Controller
+@RestController
 @RequestMapping("/categoria")
 public class CategoriaController {
 	
@@ -35,8 +36,10 @@ public class CategoriaController {
 	@Autowired
 	private CategoriaService categoriaService;
 	
-	public List<Categoria> list() {
-		return categoriaRepository.findAll();
+	@GetMapping
+	public ResponseEntity<List<Categoria>> list() {
+		List<Categoria> categorias = categoriaRepository.findAll();
+		return !categorias.isEmpty() ? ResponseEntity.ok(categorias): ResponseEntity.noContent().build();
 	}
 	
 	@PostMapping

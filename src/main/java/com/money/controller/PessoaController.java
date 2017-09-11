@@ -68,7 +68,7 @@ public class PessoaController {
 		return ResponseEntity.ok(pessoaSalva);
 	}
 	
-	@PutMapping("/{id}/{ativo}")
+	@PutMapping("/{id}/ativo")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@PreAuthorize("hasAuthority('ROLE_CADASTRAR_PESSOA') and #oauth2.hasScope('write')")
 	public void updateActive(@PathVariable Long id, @RequestBody Boolean ativo) {
